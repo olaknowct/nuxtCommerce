@@ -15,5 +15,8 @@
     "@types/node": "^18.17.1",
     "nuxt": "^3.6.5",
     "pinia": "^2.1.6"
+  },
+  "dependencies": {
+    "@vueuse/core": "^10.3.0"
   }
 }

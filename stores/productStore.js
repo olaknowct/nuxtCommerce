@@ -20,6 +20,9 @@ export const useProductStore = defineStore('products', () => {
   const setSelectedCategory = (category) => {
     products.value.selectedCategory = category;
   };
+  const setSortBy = (sortBy) => {
+    products.value.sortBy = sortBy;
+  };
 
   const selectedCategory = computed(() => {
     return products.value.selectedCategory;
@@ -45,6 +48,7 @@ export const useProductStore = defineStore('products', () => {
     selectedItems,
     setSelectedCategory,
     sortBy,
+    setSortBy,
   };
 });
 

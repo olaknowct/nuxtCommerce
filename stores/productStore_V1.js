@@ -26,23 +26,3 @@ export const useProductStore = defineStore('products', () => {
 
   return { products, setItems, setCategories, selectedCategory };
 });
-
-// export const useProductStore = defineStore('products', {
-//   state: () => ({
-//     items: [],
-//     categories: [],
-//     count: 4,
-//     selectedCategory: 'all',
-//   }),
-//   // getters: {
-//   //   doubleCount: (state) => state.count * 2,
-//   // },
-//   actions: {
-//     setItems(productItems) {
-//       this.items = productItems;
-//     },
-//     setCategories(categories) {
-//       this.categories = ['all', ...categories];
-//     },
-//   },
-// });

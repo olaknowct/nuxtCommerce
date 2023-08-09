@@ -2,7 +2,7 @@
 import { useProductStore } from '@/stores/productStore';
 import { useFetch } from '@vueuse/core';
 const store = useProductStore();
-const { products, setCategories, countComputed } = store;
+const { products } = store;
 
 const url = 'https://fakestoreapi.com/products/categories';
 
@@ -10,7 +10,7 @@ const url = 'https://fakestoreapi.com/products/categories';
 const { isFetching, error, data, isFinished } = useFetch(url, {
   afterFetch(ctx) {
     // console.log(ctx.data);
-    setCategories(JSON.parse(ctx.data));
+    store.setCategories(JSON.parse(ctx.data));
   },
 });
 </script>
@@ -18,9 +18,10 @@ const { isFetching, error, data, isFinished } = useFetch(url, {
 <template>
   <aside>
     <nav>
+      <SortBy />
       <ul class="flex flex-col text-xl">
         <ListCategory
-          v-for="category of products.categories"
+          v-for="category of store.products.categories"
           :key="category"
           :category="category"
         />

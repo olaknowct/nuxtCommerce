@@ -15,8 +15,8 @@ defineProps(['category']);
       v-model="products.selectedCategory"
     />
     <label :for="category">{{ category }}</label>
-    <NuxtLink class="rounded-xl bg-red-300" :to="`/products/${category}`" noPrefetch>{{
+    <!-- <NuxtLink class="rounded-xl bg-red-300" :to="`/products/${category}`" noPrefetch>{{
       category
-    }}</NuxtLink>
+    }}</NuxtLink> -->
   </li>
 </template>

@@ -6,6 +6,7 @@ export const useProductStore = defineStore('products', () => {
     categories: [],
     count: 4,
     selectedCategory: 'all',
+    sortBy: 'alphabetically',
   });
 
   const setItems = (items) => {
@@ -28,6 +29,10 @@ export const useProductStore = defineStore('products', () => {
     return products.value.items;
   });
 
+  const sortBy = computed(() => {
+    return products.value.sortBy;
+  });
+
   // const countComputed = computed(() => {
   //   return products.value.count + 1;
   // });
@@ -39,6 +44,7 @@ export const useProductStore = defineStore('products', () => {
     selectedCategory,
     selectedItems,
     setSelectedCategory,
+    sortBy,
   };
 });
 

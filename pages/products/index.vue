@@ -1,42 +1,74 @@
 <script setup>
 import { useProductStore } from '@/stores/productStore';
 import { useFetch } from '@vueuse/core';
-const store = useProductStore();
-const { products, setItems, selectedCategory } = store;
-let url = 'https://fakestoreapi.com/products';
+
+const router = useRouter();
 const route = useRoute();
-console.log(route.query);
-console.log(products.selectedCategory);
-console.log(products.categories);
+const store = useProductStore();
 
-const category = ref(products.selectedCategory);
-console.log(category);
+console.log(route.query.category);
 
-if (products.selectedCategory != 'all')
-  url = `https://fakestoreapi.com/products/category/${products.selectedCategory}`;
+if (route.query?.category !== 'all') {
+  store.setSelectedCategory(route.query.category);
+}
+// let url;
+const getProdutsEndpoint = 'https://fakestoreapi.com/products';
+let fetchUrl = getProdutsEndpoint;
 
-watch(products.selectedCategory, () => {
-  console.log('some changed', someGetter);
-});
+if (store.selectedCategory !== 'all') {
+  fetchUrl = `https://fakestoreapi.com/products/category/${store.selectedCategory}`;
+}
 
-// if ( products.selectedCategory ==  )
-// const { isFetching, error, data } = useFetch(url);
-const { isFetching, error, data, isFinished } = useFetch(url, {
+const { isFetching, error, data, isFinished } = useFetch(fetchUrl, {
   afterFetch(ctx) {
-    setItems(JSON.parse(ctx.data));
+    store.setItems(JSON.parse(ctx.data));
   },
 });
+
+watch(
+  () => store.selectedCategory,
+  (newCategory) => {
+    fetchUrl =
+      newCategory == 'all'
+        ? getProdutsEndpoint
+        : `https://fakestoreapi.com/products/category/${newCategory}`;
+
+    const { isFetching, error, data, isFinished } = useFetch(fetchUrl, {
+      afterFetch(ctx) {
+        store.setItems(JSON.parse(ctx.data));
+      },
+    });
+
+    router.push(`/products?category=${newCategory}`);
+  }
+);
+
+// watch(
+//   () => store.selectedCategory,
+//   (newCategory) => {
+//     url =
+//       newCategory == 'all'
+//         ? getProdutsEndpoint
+//         : `https://fakestoreapi.com/products/category/${newCategory}`;
+//     console.log(url);
+//     const { isFetching, error, data, isFinished } = useFetch(url, {
+//       afterFetch(ctx) {
+//         store.setItems(JSON.parse(ctx.data));
+//       },
+//     });
+//     console.log(url, newCategory);
+//   }
+// );
+// // fetching related
+// let url = 'https://fakestoreapi.com/products';
+
+// if (products.selectedCategory != 'all')
+//   url = `https://fakestoreapi.com/products/category/${products.selectedCategory}`;
 </script>
-
 <template>
-  <section>
+  <div>
     <SideNavigation />
-
-    <div class="text-7xl" v-if="isFetching || !isFinished">looooooooooooooding</div>
-    <div class="text-7xl" v-else>
-      <!-- <h1>{{ products.items }}</h1> -->
-      <h1>{{ selectedCategory }}</h1>
-      <!-- <h1>{{ countComputed }}</h1> -->
-    </div>
-  </section>
+    <h1>{{ store.selectedCategory }}</h1>
+    <h1>{{ store.selectedItems }}</h1>
+  </div>
 </template>

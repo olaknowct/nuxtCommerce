@@ -16,15 +16,30 @@ export const useProductStore = defineStore('products', () => {
     products.value.categories = ['all', ...categories];
   };
 
+  const setSelectedCategory = (category) => {
+    products.value.selectedCategory = category;
+  };
+
   const selectedCategory = computed(() => {
     return products.value.selectedCategory;
+  });
+
+  const selectedItems = computed(() => {
+    return products.value.items;
   });
 
   // const countComputed = computed(() => {
   //   return products.value.count + 1;
   // });
 
-  return { products, setItems, setCategories, selectedCategory };
+  return {
+    products,
+    setItems,
+    setCategories,
+    selectedCategory,
+    selectedItems,
+    setSelectedCategory,
+  };
 });
 
 // export const useProductStore = defineStore('products', {

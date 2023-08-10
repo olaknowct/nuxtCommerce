@@ -8,6 +8,8 @@ const route = useRoute();
 const store = useProductStore();
 let fetchUrl = productsUrl;
 
+const isFiltering = ref(false);
+
 if (route.query.category) store.setSelectedCategory(route.query.category);
 if (route.query.sortBy) store.setSortBy(route.query.sortBy);
 
@@ -23,10 +25,13 @@ const { isFetching, error, data, isFinished } = useFetch(fetchUrl, {
 watch(
   () => store.selectedCategory,
   (newCategory) => {
+    isFiltering.value = true;
+
     fetchUrl = newCategory == 'all' ? productsUrl : `${productsUrl}/category/${newCategory}`;
 
     const { isFetching, error, data, isFinished } = useFetch(fetchUrl, {
       afterFetch(ctx) {
+        isFiltering.value = false;
         store.setItems(JSON.parse(ctx.data));
       },
     });
@@ -39,9 +44,6 @@ watch(
   () => store.sortBy,
   (newSortBy) => {
     const items = [...store.selectedItems];
-
-    console.log(items);
-    console.log(store.sortBy);
 
     if (store.sortBy === 'alphabetically') {
       store.setItems(items.sort((a, b) => a.title.localeCompare(b.title)));
@@ -60,9 +62,13 @@ watch(
 );
 </script>
 <template>
-  <div class="flex flex-col md:flex-row max-w-7xl mx-auto xl:p-0 px-24 gap-10">
+  <div class="flex flex-col md:flex-row max-w-6xl mx-auto xl:p-0 px-24 gap-10">
     <SideNavigation />
-    <h1>{{ store.selectedCategory }}</h1>
-    <h1>{{ store.selectedItems }}</h1>
+    <ProductCatalog
+      class="grow"
+      :isFetching="isFetching"
+      :isFinished="isFinished"
+      :isFiltering="isFiltering"
+    />
   </div>
 </template>

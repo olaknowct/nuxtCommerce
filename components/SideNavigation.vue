@@ -1,15 +1,13 @@
 <script setup>
 import { useProductStore } from '@/stores/productStore';
 import { useFetch } from '@vueuse/core';
+import { categoriesUrl } from '@/utils/api/productsEndpoints.js';
+
 const store = useProductStore();
 const { products } = store;
 
-const url = 'https://fakestoreapi.com/products/categories';
-
-// const { isFetching, error, data } = useFetch(url);
-const { isFetching, error, data, isFinished } = useFetch(url, {
+const { isFetching, error, data, isFinished } = useFetch(categoriesUrl, {
   afterFetch(ctx) {
-    // console.log(ctx.data);
     store.setCategories(JSON.parse(ctx.data));
   },
 });

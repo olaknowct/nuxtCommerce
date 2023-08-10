@@ -1,18 +1,18 @@
 <script setup>
 import { useProductStore } from '@/stores/productStore';
 import { useFetch } from '@vueuse/core';
+import { productsUrl } from '@/utils/api/productsEndpoints.js';
 
 const router = useRouter();
 const route = useRoute();
 const store = useProductStore();
-const getProdutsEndpoint = 'https://fakestoreapi.com/products';
-let fetchUrl = getProdutsEndpoint;
+let fetchUrl = productsUrl;
 
 if (route.query.category) store.setSelectedCategory(route.query.category);
 if (route.query.sortBy) store.setSortBy(route.query.sortBy);
 
 if (store.selectedCategory !== 'all')
-  fetchUrl = `https://fakestoreapi.com/products/category/${store.selectedCategory}`;
+  fetchUrl = `${productsUrl}/category/${store.selectedCategory}`;
 
 const { isFetching, error, data, isFinished } = useFetch(fetchUrl, {
   afterFetch(ctx) {
@@ -23,10 +23,7 @@ const { isFetching, error, data, isFinished } = useFetch(fetchUrl, {
 watch(
   () => store.selectedCategory,
   (newCategory) => {
-    fetchUrl =
-      newCategory == 'all'
-        ? getProdutsEndpoint
-        : `https://fakestoreapi.com/products/category/${newCategory}`;
+    fetchUrl = newCategory == 'all' ? productsUrl : `${productsUrl}/category/${newCategory}`;
 
     const { isFetching, error, data, isFinished } = useFetch(fetchUrl, {
       afterFetch(ctx) {
@@ -47,11 +44,11 @@ watch(
     console.log(store.sortBy);
 
     if (store.sortBy === 'alphabetically') {
-      console.log(items.sort((a, b) => a.title.localeCompare(b.title)));
+      store.setItems(items.sort((a, b) => a.title.localeCompare(b.title)));
     } else if (store.sortBy === 'pricing') {
-      console.log(items.sort((a, b) => a.price - b.price));
+      store.setItems(items.sort((a, b) => a.price - b.price));
     } else if (store.sortBy === 'rating') {
-      console.log(items.sort((a, b) => b.rating.rate - a.rating.rate));
+      store.setItems(items.sort((a, b) => b.rating.rate - a.rating.rate));
     } else {
       return items;
     }

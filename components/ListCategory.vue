@@ -6,7 +6,7 @@ const { products, setCategories, countComputed } = store;
 defineProps(['category']);
 </script>
 <template>
-  <li class="">
+  <li class="flex gap-3">
     <input
       :id="category"
       :name="'category'"
@@ -14,7 +14,7 @@ defineProps(['category']);
       :value="category"
       v-model="products.selectedCategory"
     />
-    <label :for="category">{{ category }}</label>
+    <label :for="category">{{ category.charAt(0).toUpperCase() + category.slice(1) }}</label>
     <!-- <NuxtLink class="rounded-xl bg-red-300" :to="`/products/${category}`" noPrefetch>{{
       category
     }}</NuxtLink> -->

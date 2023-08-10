@@ -14,7 +14,7 @@ const { isFetching, error, data, isFinished } = useFetch(url, {
 </script>
 <template>
   <section>
-    <div class="text-7xl" v-if="isFetching || !isFinished">looooooooooooooding</div>
-    <div class="text-7xl" v-else>{{ products.categories }}</div>
+    <div class="" v-if="isFetching || !isFinished">looooooooooooooding</div>
+    <div class="" v-else>{{ products.categories }}</div>
   </section>
 </template>

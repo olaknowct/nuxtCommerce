@@ -1,12 +1,16 @@
 <template>
-  <header>
+  <header class="bg-slate-50 px-20 py-8 flex justify-between">
+    <NuxtLink class="text-2xl" to="/">NuxtCommerce</NuxtLink>
     <nav>
-      <ul class="flex flex-row text-xl">
+      <ul class="flex justify-between gap-10 text-lg items-center">
         <li class="">
-          <NuxtLink class="rounded-xl bg-red-300" to="/">Home</NuxtLink>
+          <NuxtLink class="" to="/">Home</NuxtLink>
         </li>
         <li>
-          <NuxtLink to="/products">products</NuxtLink>
+          <NuxtLink to="/products">Products</NuxtLink>
+        </li>
+        <li class="flex">
+          <NuxtLink to="/cart"><Icon name="🛒" color="black" class="self-center" /></NuxtLink>
         </li>
       </ul>
     </nav>

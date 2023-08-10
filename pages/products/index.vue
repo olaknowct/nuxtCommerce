@@ -60,7 +60,7 @@ watch(
 );
 </script>
 <template>
-  <div>
+  <div class="flex flex-col md:flex-row max-w-7xl mx-auto xl:p-0 px-24 gap-10">
     <SideNavigation />
     <h1>{{ store.selectedCategory }}</h1>
     <h1>{{ store.selectedItems }}</h1>

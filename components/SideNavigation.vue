@@ -15,16 +15,20 @@ const { isFetching, error, data, isFinished } = useFetch(categoriesUrl, {
 
 <template>
   <aside>
-    <nav>
+    <nav class="flex flex-row md:flex-col gap-6 text-lg w-56 px-2">
       <SortBy />
-      <ul class="flex flex-col text-xl">
-        <ListCategory
-          v-for="category of store.products.categories"
-          :key="category"
-          :category="category"
-        />
-        <li v-if="isFetching" class="text-gray-500">Loading...</li>
-      </ul>
+
+      <div>
+        <span>Categories</span>
+        <ul class="pl-2 flex flex-row md:flex-col text-xl">
+          <ListCategory
+            v-for="category of store.products.categories"
+            :key="category"
+            :category="category"
+          />
+          <li v-if="isFetching" class="text-gray-500">Loading...</li>
+        </ul>
+      </div>
     </nav>
   </aside>
 </template>

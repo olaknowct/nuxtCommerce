@@ -1,5 +1,10 @@
 <script setup>
-defineProps(['product']);
+const router = useRouter();
+const props = defineProps(['product']);
+const productRoute = `/products/${props.product.id}`;
+const navigateToProduct = () => {
+  router.push(productRoute);
+};
 </script>
 
 <template>
@@ -17,7 +22,8 @@ defineProps(['product']);
         <p>Rating: {{ product.rating.rate }}</p>
       </div>
       <button
-        class="rounded-full bg-green-400 text-white px-7 py-2 hover:translate-y-[1px] active:-translate-y-[1px] transition duration-0 hover:duration-50"
+        @click="navigateToProduct"
+        class="rounded-md shadow-lg bg-green-700 text-white px-7 py-2 hover:translate-y-[1px] active:-translate-y-[1px] transition duration-0 hover:duration-50"
       >
         Buy me!
       </button>

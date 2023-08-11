@@ -26,7 +26,11 @@ const { isFetching, error, data, isFinished } = useFetch(categoriesUrl, {
             :key="category"
             :category="category"
           />
-          <li v-if="isFetching" class="text-gray-500">Loading...</li>
+          <div v-if="!isFinished">
+            <svg class="animate-spin h-5 w-5 mr-3 bg-green-400 ..." viewBox="0 0 24 24">
+              <!-- ... -->
+            </svg>
+          </div>
         </ul>
       </div>
     </nav>

@@ -16,6 +16,7 @@ const { isFetching, error, data, isFinished } = useFetch(categoriesUrl, {
 <template>
   <aside>
     <nav class="flex flex-col gap-6 text-lg w-56 px-2">
+      <Search />
       <SortBy />
 
       <div>

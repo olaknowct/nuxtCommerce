@@ -9,6 +9,7 @@ export const useProductStore = defineStore('products', () => {
     sortBy: 'alphabetically',
     selectedProduct: null,
     cart: [],
+    searchedItem: '',
   });
 
   const setItems = (items) => {
@@ -28,6 +29,15 @@ export const useProductStore = defineStore('products', () => {
 
   const setSelectedProduct = (item) => {
     products.value.selectedProduct = item;
+  };
+
+  // return products.value.items.find((item) => item.sele);
+  const setSearchItem = (items, inputVal) => {
+    const filteredItems = items.filter((item) =>
+      item.title.toLowerCase().startsWith(inputVal.toLowerCase())
+    );
+    products.value.items = filteredItems;
+    products.value.searchedItem = inputVal;
   };
 
   const addItemToCart = (item) => {
@@ -54,8 +64,13 @@ export const useProductStore = defineStore('products', () => {
   const cartItems = computed(() => {
     return products.value.cart;
   });
+
   const sortBy = computed(() => {
     return products.value.sortBy;
+  });
+
+  const searchedItem = computed(() => {
+    return products.value.searchedItem;
   });
 
   const cartTotal = computed(() => {
@@ -66,12 +81,10 @@ export const useProductStore = defineStore('products', () => {
     return products.value.cart?.reduce((acc, item) => item.quantity + acc, 0);
   });
 
-  // const countComputed = computed(() => {
-  //   return products.value.count + 1;
-  // });
-
   return {
     products,
+    setSearchItem,
+    searchedItem,
     cartTotalCount,
     cartTotal,
     addItemToCart,

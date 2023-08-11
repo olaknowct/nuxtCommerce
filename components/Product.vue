@@ -12,14 +12,14 @@ const navigateToProduct = () => {
     <article
       class="w-70 py-10 bg-neutral-50 shadow-xl rounded-lg flex flex-col items-center text-sm px-4 text-center"
     >
-      <img :src="product.image" class="h-40" :alt="product.name" />
+      <img :src="product?.image" class="h-40" :alt="product?.name" />
       <h3 class="text-lg line-clamp-2 h-[56px] font-semibold">
-        {{ product.title }}
+        {{ product?.title }}
       </h3>
-      <p class="line-clamp-3 text-zinc-400 mt-2 h-[60px] mb-4">{{ product.description }}</p>
+      <p class="line-clamp-3 text-zinc-400 mt-2 h-[60px] mb-4">{{ product?.description }}</p>
       <div class="flex justify-between w-full px-2 py-2 font-semibold">
-        <p>Price: {{ product.price }}</p>
-        <p>Rating: {{ product.rating.rate }}</p>
+        <p>Price: {{ product?.price }}</p>
+        <p>Rating: {{ product?.rating?.rate }}</p>
       </div>
       <button
         @click="navigateToProduct"

@@ -4,7 +4,7 @@ const store = useProductStore();
 </script>
 <template>
   <header class="shadow-md">
-    <div class="max-w-7xl py-8 flex justify-between align-center mx-auto">
+    <div class="max-w-7xl py-8 px-4 flex justify-between align-center mx-auto">
       <NuxtLink
         class="text-5xl font-bold tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-green-950"
         to="/"

@@ -34,7 +34,7 @@ const addItemToCart = (product, quantity) => {
         <!-- ... -->
       </svg>
     </div>
-    <div class="flex flex-row shadow-md" v-else>
+    <div class="flex flex-col md:flex-row shadow-md md:p-0 px-10" v-else>
       <div class="bg-white flex justify-center items-center py-10 px-10">
         <img
           :src="store?.selectedProduct?.image"

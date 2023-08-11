@@ -17,7 +17,7 @@ defineProps(['isFinished', 'isFetching', 'isFiltering']);
         <!-- ... -->
       </svg>
     </div>
-    <ul class="grid grid-cols-3 gap-6 px-2" v-else>
+    <ul class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 px-2" v-else>
       <Product v-for="(item, index) in store.selectedItems" :key="index" :product="item" />
     </ul>
   </div>

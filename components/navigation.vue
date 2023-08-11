@@ -15,7 +15,7 @@
             <NuxtLink to="/products">Products</NuxtLink>
           </li>
           <li class="flex">
-            <NuxtLink><Icon name="🛒" color="black" class="self-center" /></NuxtLink>
+            <NuxtLink to="/cart"><Icon name="🛒" color="black" class="self-center" /></NuxtLink>
           </li>
         </ul>
       </nav>

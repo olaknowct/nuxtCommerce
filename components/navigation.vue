@@ -1,3 +1,7 @@
+<script setup>
+import { useProductStore } from '@/stores/productStore';
+const store = useProductStore();
+</script>
 <template>
   <header class="shadow-md">
     <div class="max-w-7xl py-8 flex justify-between align-center mx-auto">
@@ -14,8 +18,11 @@
           <li>
             <NuxtLink to="/products">Products</NuxtLink>
           </li>
-          <li class="flex">
+          <li class="flex items-center justify-center">
             <NuxtLink to="/cart"><Icon name="🛒" color="black" class="self-center" /></NuxtLink>
+            <span class="bg-red-500 rounded-full px-1 text-white text-sm self-start">{{
+              store.cartTotalCount
+            }}</span>
           </li>
         </ul>
       </nav>

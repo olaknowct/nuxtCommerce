@@ -62,12 +62,17 @@ export const useProductStore = defineStore('products', () => {
     return products.value.cart.reduce((acc, item) => item.quantity * item.price + acc, 0);
   });
 
+  const cartTotalCount = computed(() => {
+    return products.value.cart?.reduce((acc, item) => item.quantity + acc, 0);
+  });
+
   // const countComputed = computed(() => {
   //   return products.value.count + 1;
   // });
 
   return {
     products,
+    cartTotalCount,
     cartTotal,
     addItemToCart,
     setItems,

@@ -15,6 +15,7 @@ defineProps(['cart']);
         <button class="border-2">&#62;</button>
       </span>
     </td>
+    <td class="px-10">{{ cart.price }}</td>
     <td class="px-10">{{ cart.price * cart.quantity }}</td>
   </tr>
 </template>

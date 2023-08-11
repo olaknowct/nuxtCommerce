@@ -13,12 +13,13 @@ defineProps(['category']);
           <th>Name</th>
           <th>Quantity</th>
           <th>Price</th>
+          <th>Total Price</th>
         </tr>
       </thead>
       <tbody class="mt-4">
         <CartList v-for="(item, index) in store.cartItems" :key="index" :cart="item" />
       </tbody>
     </table>
-    <span class="text-end pr-40">Cart Total {{ store.cartTotal }} </span>
+    <span class="self-end">Cart Total {{ store.cartTotal }} </span>
   </div>
 </template>

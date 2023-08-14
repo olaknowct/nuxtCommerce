@@ -1,10 +1,7 @@
 <script setup>
 import { useProductStore } from '@/stores/productStore';
 const store = useProductStore();
-// const route = useRoute();
-// const router = useRouter();
-// const sortedByPath = `${route.fullPath}&sortBy=${store.sortBy}`;
-// router.push(sortedByPath);
+
 const { products } = store;
 </script>
 

@@ -43,15 +43,15 @@ watch(
 );
 
 watch(
-  () => store.sortBy,
+  () => products.value.sortBy,
   (newSortBy) => {
-    const items = [...products.items];
+    const items = [...products.value.items];
 
-    if (store.sortBy === 'alphabetically') {
+    if (products.value.sortBy === 'alphabetically') {
       store.setItems(items.sort((a, b) => a.title.localeCompare(b.title)));
-    } else if (store.sortBy === 'pricing') {
+    } else if (products.value.sortBy === 'pricing') {
       store.setItems(items.sort((a, b) => a.price - b.price));
-    } else if (store.sortBy === 'rating') {
+    } else if (products.value.sortBy === 'rating') {
       store.setItems(items.sort((a, b) => b.rating.rate - a.rating.rate));
     } else {
       return items;

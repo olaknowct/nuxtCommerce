@@ -31,7 +31,6 @@ export const useProductStore = defineStore('products', () => {
     products.value.selectedProduct = item;
   };
 
-  // return products.value.items.find((item) => item.sele);
   const setSearchItem = (items, inputVal) => {
     const filteredItems = items.filter((item) =>
       item.title.toLowerCase().startsWith(inputVal.toLowerCase())
@@ -49,30 +48,6 @@ export const useProductStore = defineStore('products', () => {
     if (cartItem) return (cartItem.quantity += item.quantity);
   };
 
-  const selectedCategory = computed(() => {
-    return products.value.selectedCategory;
-  });
-
-  const selectedItems = computed(() => {
-    return products.value.items;
-  });
-
-  const selectedProduct = computed(() => {
-    return products.value.selectedProduct;
-  });
-
-  const cartItems = computed(() => {
-    return products.value.cart;
-  });
-
-  const sortBy = computed(() => {
-    return products.value.sortBy;
-  });
-
-  const searchedItem = computed(() => {
-    return products.value.searchedItem;
-  });
-
   const cartTotal = computed(() => {
     return products.value.cart.reduce((acc, item) => item.quantity * item.price + acc, 0);
   });
@@ -84,39 +59,13 @@ export const useProductStore = defineStore('products', () => {
   return {
     products,
     setSearchItem,
-    searchedItem,
     cartTotalCount,
     cartTotal,
     addItemToCart,
     setItems,
     setCategories,
-    // selectedCategory,
-    selectedItems,
     setSelectedCategory,
-    sortBy,
     setSortBy,
-    selectedProduct,
     setSelectedProduct,
-    cartItems,
   };
 });
-
-// export const useProductStore = defineStore('products', {
-//   state: () => ({
-//     items: [],
-//     categories: [],
-//     count: 4,
-//     selectedCategory: 'all',
-//   }),
-//   // getters: {
-//   //   doubleCount: (state) => state.count * 2,
-//   // },
-//   actions: {
-//     setItems(productItems) {
-//       this.items = productItems;
-//     },
-//     setCategories(categories) {
-//       this.categories = ['all', ...categories];
-//     },
-//   },
-// });

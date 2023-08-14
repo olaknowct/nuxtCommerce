@@ -1,12 +1,15 @@
 <script setup>
 import { useProductStore } from '@/stores/productStore';
 import { productsUrl } from '@/utils/api/productsEndpoints.js';
+import { storeToRefs } from 'pinia';
 
 const store = useProductStore();
+const { products } = storeToRefs(store);
+
 let res;
 const handleInput = async (event) => {
   const inputValue = event.target.value;
-  if (store.searchedItem.length == 0) {
+  if (products.value.searchedItem.length == 0) {
     res = await $fetch(productsUrl);
   }
   store.setSearchItem(res, inputValue);

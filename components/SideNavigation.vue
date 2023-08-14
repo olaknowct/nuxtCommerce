@@ -23,7 +23,7 @@ const { isFetching, error, data, isFinished } = useFetch(categoriesUrl, {
         <span>Categories</span>
         <ul class="pl-2 flex flex-col justify-center items-start text-xl">
           <ListCategory
-            v-for="category of store.products.categories"
+            v-for="category of products.categories"
             :key="category"
             :category="category"
           />

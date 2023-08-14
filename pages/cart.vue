@@ -1,6 +1,9 @@
 <script setup>
 import { useProductStore } from '@/stores/productStore';
+import { storeToRefs } from 'pinia';
+
 const store = useProductStore();
+const { products, cartTotal } = storeToRefs(store);
 
 defineProps(['category']);
 </script>
@@ -17,9 +20,9 @@ defineProps(['category']);
         </tr>
       </thead>
       <tbody class="mt-4">
-        <CartList v-for="(item, index) in store.cartItems" :key="index" :cart="item" />
+        <CartList v-for="(item, index) in products.cart" :key="index" :cart="item" />
       </tbody>
     </table>
-    <span class="self-end">Cart Total {{ store.cartTotal }} </span>
+    <span class="self-end">Cart Total {{ cartTotal }} </span>
   </div>
 </template>

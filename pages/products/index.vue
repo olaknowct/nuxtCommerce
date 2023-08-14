@@ -2,19 +2,21 @@
 import { useProductStore } from '@/stores/productStore';
 import { useFetch } from '@vueuse/core';
 import { productsUrl } from '@/utils/api/productsEndpoints.js';
+import { storeToRefs } from 'pinia';
 
 const router = useRouter();
 const route = useRoute();
 const store = useProductStore();
+const { products } = storeToRefs(store);
 let fetchUrl = productsUrl;
 
 const isFiltering = ref(false);
 
+// Filtering options
 if (route.query.category) store.setSelectedCategory(route.query.category);
 if (route.query.sortBy) store.setSortBy(route.query.sortBy);
-
-if (store.selectedCategory !== 'all')
-  fetchUrl = `${productsUrl}/category/${store.selectedCategory}`;
+if (products.value.selectedCategory !== 'all')
+  fetchUrl = `${productsUrl}/category/${products.value.selectedCategory}`;
 
 const { isFetching, error, data, isFinished } = useFetch(fetchUrl, {
   afterFetch(ctx) {
@@ -23,7 +25,7 @@ const { isFetching, error, data, isFinished } = useFetch(fetchUrl, {
 });
 
 watch(
-  () => store.selectedCategory,
+  () => products.value.selectedCategory,
   (newCategory) => {
     isFiltering.value = true;
 
@@ -43,7 +45,7 @@ watch(
 watch(
   () => store.sortBy,
   (newSortBy) => {
-    const items = [...store.selectedItems];
+    const items = [...products.items];
 
     if (store.sortBy === 'alphabetically') {
       store.setItems(items.sort((a, b) => a.title.localeCompare(b.title)));

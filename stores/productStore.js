@@ -90,7 +90,7 @@ export const useProductStore = defineStore('products', () => {
     addItemToCart,
     setItems,
     setCategories,
-    selectedCategory,
+    // selectedCategory,
     selectedItems,
     setSelectedCategory,
     sortBy,

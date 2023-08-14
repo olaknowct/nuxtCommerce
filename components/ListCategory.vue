@@ -1,7 +1,9 @@
 <script setup>
 import { useProductStore } from '@/stores/productStore';
+import { storeToRefs } from 'pinia';
 const store = useProductStore();
-const { products, setCategories, countComputed } = store;
+
+const { products } = storeToRefs(store);
 
 defineProps(['category']);
 </script>

@@ -24,41 +24,44 @@ const { isFetching, error, data, isFinished } = useFetch(fetchUrl, {
   },
 });
 
-watchEffect(() => {
-  isFiltering.value = true;
+watch(
+  () => products.value.selectedCategory,
+  (newCategory) => {
+    isFiltering.value = true;
 
-  fetchUrl =
-    products.value.selectedCategory == 'all'
-      ? productsUrl
-      : `${productsUrl}/category/${products.value.selectedCategory}`;
+    fetchUrl = newCategory == 'all' ? productsUrl : `${productsUrl}/category/${newCategory}`;
 
-  const { isFetching, error, data, isFinished } = useFetch(fetchUrl, {
-    afterFetch(ctx) {
-      isFiltering.value = false;
-      store.setItems(JSON.parse(ctx.data));
-    },
-  });
+    const { isFetching, error, data, isFinished } = useFetch(fetchUrl, {
+      afterFetch(ctx) {
+        isFiltering.value = false;
+        store.setItems(JSON.parse(ctx.data));
+      },
+    });
 
-  router.push(`/products?category=${products.value.selectedCategory}`);
-});
-
-watchEffect(() => {
-  const items = [...products.value.items];
-
-  if (products.value.sortBy === 'alphabetically') {
-    store.setItems(items.sort((a, b) => a.title.localeCompare(b.title)));
-  } else if (products.value.sortBy === 'pricing') {
-    store.setItems(items.sort((a, b) => a.price - b.price));
-  } else if (products.value.sortBy === 'rating') {
-    store.setItems(items.sort((a, b) => b.rating.rate - a.rating.rate));
-  } else {
-    return items;
+    router.push(`/products?category=${newCategory}`);
   }
+);
 
-  if (!route.query.category) return router.push(`/products?sortBy=${products.value.sortBy}`);
-  if (!route.query.sortBy) return router.push(`${route.fullPath}&sortBy=${products.value.sortBy}`);
-  router.push(`${route.path}?category=${route.query.category}&sortBy=${products.value.sortBy}`);
-});
+watch(
+  () => products.value.sortBy,
+  (newSortBy) => {
+    const items = [...products.value.items];
+
+    if (products.value.sortBy === 'alphabetically') {
+      store.setItems(items.sort((a, b) => a.title.localeCompare(b.title)));
+    } else if (products.value.sortBy === 'pricing') {
+      store.setItems(items.sort((a, b) => a.price - b.price));
+    } else if (products.value.sortBy === 'rating') {
+      store.setItems(items.sort((a, b) => b.rating.rate - a.rating.rate));
+    } else {
+      return items;
+    }
+
+    if (!route.query.category) return router.push(`/products?sortBy=${newSortBy}`);
+    if (!route.query.sortBy) return router.push(`${route.fullPath}&sortBy=${newSortBy}`);
+    router.push(`${route.path}?category=${route.query.category}&sortBy=${newSortBy}`);
+  }
+);
 </script>
 <template>
   <div class="flex flex-col md:flex-row max-w-6xl mx-auto xl:p-0 px-24 gap-10">

@@ -56,7 +56,28 @@ export const useProductStore = defineStore('products', () => {
     return products.value.cart?.reduce((acc, item) => item.quantity + acc, 0);
   });
 
+  const filteredItems = computed(() => {
+    let sortedItems;
+
+    switch (products.value.sortBy) {
+      case 'alphabetically':
+        sortedItems = products.value.items.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case 'pricing':
+        sortedItems = products.value.items.sort((a, b) => a.price - b.price);
+        break;
+      case 'rating':
+        sortedItems = products.value.items.sort((a, b) => b.rating.rate - a.rating.rate);
+        break;
+      default:
+        sortedItems = products.value.items;
+    }
+
+    return sortedItems;
+  });
+
   return {
+    filteredItems,
     products,
     setSearchItem,
     cartTotalCount,

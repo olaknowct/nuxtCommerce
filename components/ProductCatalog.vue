@@ -2,7 +2,8 @@
 import { useProductStore } from '@/stores/productStore';
 import { storeToRefs } from 'pinia';
 const store = useProductStore();
-const { products } = storeToRefs(store);
+const { products, filteredItems } = storeToRefs(store);
+
 defineProps(['isFinished', 'isFetching', 'isFiltering']);
 </script>
 
@@ -20,8 +21,8 @@ defineProps(['isFinished', 'isFetching', 'isFiltering']);
       </svg>
     </div>
     <ul class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 px-2" v-else>
-      <div v-if="!products.items">Products not found</div>
-      <Product v-else v-for="(item, index) in products.items" :key="index" :product="item" />
+      <div v-if="!filteredItems">Products not found</div>
+      <Product v-else v-for="(item, index) in filteredItems" :key="index" :product="item" />
     </ul>
   </div>
 </template>
